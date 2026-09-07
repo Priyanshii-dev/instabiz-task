@@ -1,16 +1,16 @@
 import { Pool } from 'pg';
 import { env } from './env';
 
-/**
- * A single shared PostgreSQL connection pool for the whole app.
- * All models query through this pool instead of creating their own clients.
- */
 export const pool = new Pool({
   connectionString: env.databaseUrl,
   ssl: env.pgSsl ? { rejectUnauthorized: false } : undefined,
   max: 1,
   idleTimeoutMillis: 10000,
   connectionTimeoutMillis: 10000,
+  query_timeout: 8000,
+  statement_timeout: 8000,
+  keepAlive: true,
+  keepAliveInitialDelayMillis: 5000,
 });
 
 pool.on('error', (err) => {
