@@ -8,18 +8,20 @@ import { env } from './env';
 export const pool = new Pool({
   connectionString: env.databaseUrl,
   ssl: env.pgSsl ? { rejectUnauthorized: false } : undefined,
+  max: 1,
+  idleTimeoutMillis: 10000,
+  connectionTimeoutMillis: 10000,
 });
 
 pool.on('error', (err) => {
   console.error('Unexpected PostgreSQL pool error', err);
-  process.exit(1);
 });
 
 export async function testConnection(): Promise<void> {
   const client = await pool.connect();
   try {
     await client.query('SELECT 1');
-    console.log(' PostgreSQL connected');
+    console.log('PostgreSQL connected');
   } finally {
     client.release();
   }
