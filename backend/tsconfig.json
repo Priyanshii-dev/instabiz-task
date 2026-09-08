@@ -10,14 +10,12 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "moduleResolution": "node",
-    "baseUrl": "src",
     "paths": {
-      "@common/*": ["common/*"],
-      "@config/*": ["config/*"],
-      "@modules/*": ["modules/*"],
-      "@routes/*": ["routes/*"],
-      "@db/*": ["db/*"]
+      "@common/*": ["./src/common/*"],
+      "@config/*": ["./src/config/*"],
+      "@modules/*": ["./src/modules/*"],
+      "@routes/*": ["./src/routes/*"],
+      "@db/*": ["./src/db/*"]
     }
   },
   "include": ["src/**/*.ts"],
