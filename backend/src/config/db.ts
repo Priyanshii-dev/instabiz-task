@@ -4,7 +4,7 @@ import { env } from './env';
 export const pool = new Pool({
   connectionString: env.databaseUrl,
   ssl: env.pgSsl ? { rejectUnauthorized: false } : undefined,
-  max: 1,
+  max: 10,
   idleTimeoutMillis: 10000,
   connectionTimeoutMillis: 10000,
   query_timeout: 8000,
