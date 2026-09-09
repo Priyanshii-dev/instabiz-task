@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, ReactNode } from 'react';
+import { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from 'react';
 import Link from 'next/link';
 import { cn } from './cn';
 
@@ -34,11 +34,14 @@ const base =
   'inline-flex items-center justify-center gap-2 rounded-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2';
 
 interface ButtonProps
-  extends BaseProps, ButtonHTMLAttributes<HTMLButtonElement> {
+  extends BaseProps,
+    Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'> {
   href?: undefined;
 }
 
-interface LinkButtonProps extends BaseProps {
+interface LinkButtonProps
+  extends BaseProps,
+    Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'children' | 'href'> {
   href: string;
 }
 
@@ -62,7 +65,9 @@ export function Button({
 
   if (href) {
     return (
-      <Link href={href} className={classes}>
+      <Link href={href} className={classes}
+        {...(rest as AnchorHTMLAttributes<HTMLAnchorElement>)}
+      >
         {children}
       </Link>
     );
